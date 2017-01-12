@@ -1,6 +1,6 @@
-CC := g++
+CC := g++-4.9
 # CC := clang --analyze # and comment out the linker last line for sanity
-SRCDIR := ./
+SRCDIR := src
 BUILDDIR := build
 TARGET := build/mbtiles-server
 
@@ -9,9 +9,10 @@ SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 CFLAGS := -g -std=c++11 -v -Wall
 LIB := -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
-INC := -I ./
+INC := -I include
 
 $(TARGET): $(OBJECTS)
+	@mkdir -p $(BUILDDIR)
 	@echo " Linking..."
 	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
 

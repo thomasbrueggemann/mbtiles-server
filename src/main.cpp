@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "crow.h"
+#include "cppGzip/DecodeGzip.h"
 #include "VectorTile.h"
 #include "MBTileReader.h"
 
