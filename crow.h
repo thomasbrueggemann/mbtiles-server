@@ -186,7 +186,7 @@ inline char * qs_k2v(const char * key, char * const * qs_kv, int qs_kv_size, int
             // return (zero-char value) ? ptr to trailing '\0' : ptr to value
             if(nth == 0)
                 return qs_kv[i] + skip;
-            else 
+            else
                 --nth;
         }
     }
@@ -234,7 +234,7 @@ inline char * qs_scanvalue(const char * key, const char * qs, char * val, size_t
 // ----------------------------------------------------------------------------
 
 
-namespace crow 
+namespace crow
 {
     class query_string
     {
@@ -291,7 +291,7 @@ namespace crow
             key_value_pairs_.resize(count);
         }
 
-        void clear() 
+        void clear()
         {
             key_value_pairs_.clear();
             url_.clear();
@@ -319,7 +319,7 @@ namespace crow
         std::vector<char*> get_list (const std::string& name) const
         {
             std::vector<char*> ret;
-            std::string plus = name + "[]";            
+            std::string plus = name + "[]";
             char* element = nullptr;
 
             int count = 0;
@@ -489,7 +489,7 @@ enum flags
 
 
 /* Map for errno-related constants
- * 
+ *
  * The provided argument should be a macro that takes 2 arguments.
  */
 #define CROW_HTTP_ERRNO_MAP(CROW_XX)                                           \
@@ -768,7 +768,7 @@ do {                                                                 \
     FOR##_mark = NULL;                                               \
   }                                                                  \
 } while (0)
-  
+
 /* Run the data callback FOR and consume the current byte */
 #define CROW_CALLBACK_DATA(FOR)                                           \
     CROW_CALLBACK_DATA_(FOR, p - FOR##_mark, p - data + 1)
@@ -3023,13 +3023,13 @@ namespace crow
 
 
 
-/* 
+/*
  *
  * TinySHA1 - a header only implementation of the SHA1 algorithm in C++. Based
  * on the implementation in boost::uuid::details.
- * 
+ *
  * SHA1 Wikipedia Page: http://en.wikipedia.org/wiki/SHA-1
- * 
+ *
  * Copyright (c) 2012-22 SAURAV MOHAPATRA <mohaps@gmail.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -3126,7 +3126,7 @@ namespace sha1
 			processByte( static_cast<unsigned char>((bitCount>>16) & 0xFF));
 			processByte( static_cast<unsigned char>((bitCount>>8 ) & 0xFF));
 			processByte( static_cast<unsigned char>((bitCount)     & 0xFF));
-	
+
 			memcpy(digest, m_digest, 5 * sizeof(uint32_t));
 			return digest;
 		}
@@ -3138,29 +3138,29 @@ namespace sha1
 			digest[di++] = ((d32[0] >> 16) & 0xFF);
 			digest[di++] = ((d32[0] >> 8) & 0xFF);
 			digest[di++] = ((d32[0]) & 0xFF);
-			
+
 			digest[di++] = ((d32[1] >> 24) & 0xFF);
 			digest[di++] = ((d32[1] >> 16) & 0xFF);
 			digest[di++] = ((d32[1] >> 8) & 0xFF);
 			digest[di++] = ((d32[1]) & 0xFF);
-			
+
 			digest[di++] = ((d32[2] >> 24) & 0xFF);
 			digest[di++] = ((d32[2] >> 16) & 0xFF);
 			digest[di++] = ((d32[2] >> 8) & 0xFF);
 			digest[di++] = ((d32[2]) & 0xFF);
-			
+
 			digest[di++] = ((d32[3] >> 24) & 0xFF);
 			digest[di++] = ((d32[3] >> 16) & 0xFF);
 			digest[di++] = ((d32[3] >> 8) & 0xFF);
 			digest[di++] = ((d32[3]) & 0xFF);
-			
+
 			digest[di++] = ((d32[4] >> 24) & 0xFF);
 			digest[di++] = ((d32[4] >> 16) & 0xFF);
 			digest[di++] = ((d32[4] >> 8) & 0xFF);
 			digest[di++] = ((d32[4]) & 0xFF);
 			return digest;
 		}
-	
+
 	protected:
 		void processBlock() {
 			uint32_t w[80];
@@ -3173,17 +3173,17 @@ namespace sha1
 			for (size_t i = 16; i < 80; i++) {
 				w[i] = LeftRotate((w[i-3] ^ w[i-8] ^ w[i-14] ^ w[i-16]), 1);
 			}
-	
+
 			uint32_t a = m_digest[0];
 			uint32_t b = m_digest[1];
 			uint32_t c = m_digest[2];
 			uint32_t d = m_digest[3];
 			uint32_t e = m_digest[4];
-	
+
 			for (std::size_t i=0; i<80; ++i) {
 				uint32_t f = 0;
 				uint32_t k = 0;
-	
+
 				if (i<20) {
 					f = (b & c) | (~b & d);
 					k = 0x5A827999;
@@ -3204,7 +3204,7 @@ namespace sha1
 				b = a;
 				a = temp;
 			}
-	
+
 			m_digest[0] += a;
 			m_digest[1] += b;
 			m_digest[2] += c;
@@ -3313,7 +3313,7 @@ namespace crow
             socket_.close();
         }
 
-        template <typename F> 
+        template <typename F>
         void start(F f)
         {
             f(boost::system::error_code());
@@ -3363,7 +3363,7 @@ namespace crow
             return raw_socket().get_io_service();
         }
 
-        template <typename F> 
+        template <typename F>
         void start(F f)
         {
             ssl_socket_->async_handshake(boost::asio::ssl::stream_base::server,
@@ -3481,10 +3481,10 @@ namespace crow
         class rvalue;
         rvalue load(const char* data, size_t size);
 
-        namespace detail 
+        namespace detail
         {
 
-            struct r_string 
+            struct r_string
                 : boost::less_than_comparable<r_string>,
                 boost::less_than_comparable<r_string, std::string>,
                 boost::equality_comparable<r_string>,
@@ -3589,7 +3589,7 @@ namespace crow
             static const int cached_bit = 2;
             static const int error_bit = 4;
         public:
-            rvalue() noexcept : option_{error_bit} 
+            rvalue() noexcept : option_{error_bit}
             {}
             rvalue(type t) noexcept
                 : lsize_{}, lremain_{}, t_{t}
@@ -3747,10 +3747,10 @@ namespace crow
                                                 return c - 'A' + 10;
                                             return c - '0';
                                         };
-                                        unsigned int code = 
-                                            (from_hex(head[1])<<12) + 
-                                            (from_hex(head[2])<< 8) + 
-                                            (from_hex(head[3])<< 4) + 
+                                        unsigned int code =
+                                            (from_hex(head[1])<<12) +
+                                            (from_hex(head[2])<< 8) +
+                                            (from_hex(head[3])<< 4) +
                                             from_hex(head[4]);
                                         if (code >= 0x800)
                                         {
@@ -3799,7 +3799,7 @@ namespace crow
 
             bool has(const std::string& str) const
             {
-                struct Pred 
+                struct Pred
                 {
                     bool operator()(const rvalue& l, const rvalue& r) const
                     {
@@ -3828,21 +3828,21 @@ namespace crow
                 return has(str) ? 1 : 0;
             }
 
-            rvalue* begin() const 
-            { 
+            rvalue* begin() const
+            {
 #ifndef CROW_JSON_NO_ERROR_CHECK
                 if (t() != type::Object && t() != type::List)
                     throw std::runtime_error("value is not a container");
 #endif
-                return l_.get(); 
+                return l_.get();
             }
-            rvalue* end() const 
-            { 
+            rvalue* end() const
+            {
 #ifndef CROW_JSON_NO_ERROR_CHECK
                 if (t() != type::Object && t() != type::List)
                     throw std::runtime_error("value is not a container");
 #endif
-                return l_.get()+lsize_; 
+                return l_.get()+lsize_;
             }
 
             const detail::r_string& key() const
@@ -3894,7 +3894,7 @@ namespace crow
                 if (t() != type::Object)
                     throw std::runtime_error("value is not an object");
 #endif
-                struct Pred 
+                struct Pred
                 {
                     bool operator()(const rvalue& l, const rvalue& r) const
                     {
@@ -3994,9 +3994,9 @@ namespace crow
                 case type::True: os << "true"; break;
                 case type::Number: os << r.d(); break;
                 case type::String: os << '"' << r.s() << '"'; break;
-                case type::List: 
+                case type::List:
                     {
-                        os << '['; 
+                        os << '[';
                         bool first = true;
                         for(auto& x : r)
                         {
@@ -4005,12 +4005,12 @@ namespace crow
                             first = false;
                             os << x;
                         }
-                        os << ']'; 
+                        os << ']';
                     }
                     break;
                 case type::Object:
                     {
-                        os << '{'; 
+                        os << '{';
                         bool first = true;
                         for(auto& x : r)
                         {
@@ -4020,7 +4020,7 @@ namespace crow
                             first = false;
                             os << x;
                         }
-                        os << '}'; 
+                        os << '}';
                     }
                     break;
                 }
@@ -4123,14 +4123,14 @@ namespace crow
                                     {
                                         auto check = [](char c)
                                         {
-                                            return 
+                                            return
                                                 ('0' <= c && c <= '9') ||
                                                 ('a' <= c && c <= 'f') ||
                                                 ('A' <= c && c <= 'F');
                                         };
-                                        if (!(check(*(data+1)) && 
-                                            check(*(data+2)) && 
-                                            check(*(data+3)) && 
+                                        if (!(check(*(data+1)) &&
+                                            check(*(data+2)) &&
+                                            check(*(data+3)) &&
                                             check(*(data+4))))
                                             return {};
                                     }
@@ -4221,8 +4221,8 @@ namespace crow
                                 {
                                     state = NumberParsingState::ZeroFirst;
                                 }
-                                else if (state == NumberParsingState::Digits || 
-                                    state == NumberParsingState::DigitsAfterE || 
+                                else if (state == NumberParsingState::Digits ||
+                                    state == NumberParsingState::DigitsAfterE ||
                                     state == NumberParsingState::DigitsAfterPoints)
                                 {
                                     // ok; pass
@@ -4234,8 +4234,8 @@ namespace crow
                                 else
                                     return {};*/
                                 break;
-                            case '1': case '2': case '3': 
-                            case '4': case '5': case '6': 
+                            case '1': case '2': case '3':
+                            case '4': case '5': case '6':
                             case '7': case '8': case '9':
                                 state = (NumberParsingState)"\3\3\7\3\4\6\6"[state];
                                 while(*(data+1) >= '0' && *(data+1) <= '9') data++;
@@ -4243,8 +4243,8 @@ namespace crow
                                 {
                                     state = NumberParsingState::Digits;
                                 }
-                                else if (state == NumberParsingState::Digits || 
-                                    state == NumberParsingState::DigitsAfterE || 
+                                else if (state == NumberParsingState::Digits ||
+                                    state == NumberParsingState::DigitsAfterE ||
                                     state == NumberParsingState::DigitsAfterPoints)
                                 {
                                     // ok; pass
@@ -4291,18 +4291,18 @@ namespace crow
                                 break;
                             case 'e': case 'E':
                                 state = (NumberParsingState)"\7\7\7\5\5\7\7"[state];
-                                /*if (state == NumberParsingState::Digits || 
+                                /*if (state == NumberParsingState::Digits ||
                                     state == NumberParsingState::DigitsAfterPoints)
                                 {
                                     state = NumberParsingState::E;
                                 }
-                                else 
+                                else
                                     return {};*/
                                 break;
                             default:
-                                if (crow_json_likely(state == NumberParsingState::ZeroFirst || 
-                                        state == NumberParsingState::Digits || 
-                                        state == NumberParsingState::DigitsAfterPoints || 
+                                if (crow_json_likely(state == NumberParsingState::ZeroFirst ||
+                                        state == NumberParsingState::Digits ||
+                                        state == NumberParsingState::DigitsAfterPoints ||
                                         state == NumberParsingState::DigitsAfterE))
                                     return {type::Number, start, data};
                                 else
@@ -4358,8 +4358,8 @@ namespace crow
                             }
                             else
                                 return {};
-                        //case '1': case '2': case '3': 
-                        //case '4': case '5': case '6': 
+                        //case '1': case '2': case '3':
+                        //case '4': case '5': case '6':
                         //case '7': case '8': case '9':
                         //case '0': case '-':
                         default:
@@ -4707,7 +4707,7 @@ namespace crow
                     case type::True: return 4;
                     case type::Number: return 30;
                     case type::String: return 2+s.size()+s.size()/2;
-                    case type::List: 
+                    case type::List:
                         {
                             size_t sum{};
                             if (l)
@@ -4756,7 +4756,7 @@ namespace crow
                 case type::Null: out += "null"; break;
                 case type::False: out += "false"; break;
                 case type::True: out += "true"; break;
-                case type::Number: 
+                case type::Number:
                     {
                         char outbuf[128];
                         sprintf(outbuf, "%g", v.d);
@@ -4764,7 +4764,7 @@ namespace crow
                     }
                     break;
                 case type::String: dump_string(v.s, out); break;
-                case type::List: 
+                case type::List:
                      {
                          out.push_back('[');
                          if (v.l)
@@ -4873,12 +4873,12 @@ namespace crow
             int end;
             int pos;
             ActionType t;
-            Action(ActionType t, int start, int end, int pos = 0) 
+            Action(ActionType t, int start, int end, int pos = 0)
                 : start(start), end(end), pos(pos), t(t)
             {}
         };
 
-        class template_t 
+        class template_t
         {
         public:
             template_t(std::string body)
@@ -5139,7 +5139,7 @@ namespace crow
                 std::string tag_close = "}}";
 
                 std::vector<int> blockPositions;
-                
+
                 size_t current = 0;
                 while(1)
                 {
@@ -5179,11 +5179,11 @@ namespace crow
                             while(body_[endIdx-1] == ' ') endIdx--;
                             {
                                 auto& matched = actions_[blockPositions.back()];
-                                if (body_.compare(idx, endIdx-idx, 
+                                if (body_.compare(idx, endIdx-idx,
                                         body_, matched.start, matched.end - matched.start) != 0)
                                 {
-                                    throw invalid_template_exception("not matched {{# {{/ pair: " + 
-                                        body_.substr(matched.start, matched.end - matched.start) + ", " + 
+                                    throw invalid_template_exception("not matched {{# {{/ pair: " +
+                                        body_.substr(matched.start, matched.end - matched.start) + ", " +
                                         body_.substr(idx, endIdx-idx));
                                 }
                                 matched.pos = actions_.size();
@@ -5305,12 +5305,12 @@ namespace crow
                     }
                     if (all_space_after && !is_last_action)
                         continue;
-                    if (!all_space_after && 
+                    if (!all_space_after &&
                             !(
-                                body_[k] == '\n' 
-                            || 
-                                (body_[k] == '\r' && 
-                                k + 1 < (int)body_.size() && 
+                                body_[k] == '\n'
+                            ||
+                                (body_[k] == '\r' &&
+                                k + 1 < (int)body_.size() &&
                                 body_[k+1] == '\n')))
                         continue;
                     if (actions_[i].t == ActionType::Partial)
@@ -5322,13 +5322,13 @@ namespace crow
                     {
                         if (body_[k] == '\n')
                             k++;
-                        else 
+                        else
                             k += 2;
                         fragment_after.first = k;
                     }
                 }
             }
-            
+
             std::vector<std::pair<int,int>> fragments_;
             std::vector<Action> actions_;
             std::string body_;
@@ -5372,7 +5372,7 @@ namespace crow
         {
             auto& base = detail::get_template_base_directory_ref();
             base = path;
-            if (base.back() != '\\' && 
+            if (base.back() != '\\' &&
                 base.back() != '/')
             {
                 base += '/';
@@ -5557,7 +5557,7 @@ namespace crow
 
 namespace crow
 {
-    namespace detail 
+    namespace detail
     {
         // fast timer queue for fixed tick value.
         class dumb_timer_queue
@@ -5666,19 +5666,19 @@ namespace crow
                 constexpr const_str( const char(&arr)[N] ) : begin_(arr), size_(N - 1) {
                     static_assert( N >= 1, "not a string literal");
                 }
-            constexpr char operator[]( unsigned i ) const { 
-                return requires_in_range(i, size_), begin_[i]; 
+            constexpr char operator[]( unsigned i ) const {
+                return requires_in_range(i, size_), begin_[i];
             }
 
-            constexpr operator const char *() const { 
-                return begin_; 
+            constexpr operator const char *() const {
+                return begin_;
             }
 
             constexpr const char* begin() const { return begin_; }
             constexpr const char* end() const { return begin_ + size_; }
 
-            constexpr unsigned size() const { 
-                return size_; 
+            constexpr unsigned size() const {
+                return size_;
             }
         };
 
@@ -5689,7 +5689,7 @@ namespace crow
 
         constexpr bool is_valid(const_str s, unsigned i = 0, int f = 0)
         {
-            return 
+            return
                 i == s.size()
                     ? f == 0 :
                 f < 0 || f >= 2
@@ -5704,7 +5704,7 @@ namespace crow
         constexpr bool is_equ_p(const char* a, const char* b, unsigned n)
         {
             return
-                *a == 0 && *b == 0 && n == 0 
+                *a == 0 && *b == 0 && n == 0
                     ? true :
                 (*a == 0 || *b == 0)
                     ? false :
@@ -5717,13 +5717,13 @@ namespace crow
 
         constexpr bool is_equ_n(const_str a, unsigned ai, const_str b, unsigned bi, unsigned n)
         {
-            return 
-                ai + n > a.size() || bi + n > b.size() 
+            return
+                ai + n > a.size() || bi + n > b.size()
                     ? false :
-                n == 0 
-                    ? true : 
-                a[ai] != b[bi] 
-                    ? false : 
+                n == 0
+                    ? true :
+                a[ai] != b[bi]
+                    ? false :
                 is_equ_n(a,ai+1,b,bi+1,n-1);
         }
 
@@ -5754,7 +5754,7 @@ namespace crow
             return is_equ_n(s, i, "<path>", 0, 6);
         }
 #endif
-        template <typename T> 
+        template <typename T>
         struct parameter_tag
         {
             static const int value = 0;
@@ -5790,9 +5790,9 @@ struct parameter_tag<t> \
         template <typename Arg, typename ... Args>
         struct compute_parameter_tag_from_args_list<Arg, Args...>
         {
-            static const int sub_value = 
+            static const int sub_value =
                 compute_parameter_tag_from_args_list<Args...>::value;
-            static const int value = 
+            static const int value =
                 parameter_tag<typename std::decay<Arg>::type>::value
                 ? sub_value* 6 + parameter_tag<typename std::decay<Arg>::type>::value
                 : sub_value;
@@ -5821,7 +5821,7 @@ struct parameter_tag<t> \
                 s[p] == '>'
                 ? p : find_closing_tag_runtime(s, p + 1);
         }
-        
+
         static inline uint64_t get_parameter_tag_runtime(const char* s, unsigned p = 0)
         {
             return
@@ -5848,9 +5848,9 @@ struct parameter_tag<t> \
         constexpr uint64_t get_parameter_tag(const_str s, unsigned p = 0)
         {
             return
-                p == s.size() 
+                p == s.size()
                     ?  0 :
-                s[p] == '<' ? ( 
+                s[p] == '<' ? (
                     is_int(s, p)
                         ? get_parameter_tag(s, find_closing_tag(s, p)) * 6 + 1 :
                     is_uint(s, p)
@@ -5862,7 +5862,7 @@ struct parameter_tag<t> \
                     is_path(s, p)
                         ? get_parameter_tag(s, find_closing_tag(s, p)) * 6 + 5 :
                     throw std::runtime_error("invalid parameter type")
-                    ) : 
+                    ) :
                 get_parameter_tag(s, p+1);
         }
 #endif
@@ -5882,7 +5882,7 @@ template <typename F, typename Set>
         template <typename F, typename ...Args>
         struct CallHelper<F, S<Args...>>
         {
-            template <typename F1, typename ...Args1, typename = 
+            template <typename F1, typename ...Args1, typename =
                 decltype(std::declval<F1>()(std::declval<Args1>()...))
                 >
             static char __test(int);
@@ -5930,15 +5930,15 @@ template <typename F, typename Set>
         };
 
 
-        template <uint64_t Tag> 
+        template <uint64_t Tag>
         struct arguments
         {
             using subarguments = typename arguments<Tag/6>::type;
-            using type = 
+            using type =
                 typename subarguments::template push<typename single_tag_to_type<Tag%6>::type>;
         };
 
-        template <> 
+        template <>
         struct arguments<0>
         {
             using type = S<>;
@@ -5980,7 +5980,7 @@ template <typename F, typename Set>
         template<> struct gen_seq<0> : seq<>{};
         template<> struct gen_seq<1> : seq<0>{};
 
-        template <typename Seq, typename Tuple> 
+        template <typename Seq, typename Tuple>
         struct pop_back_helper;
 
         template <unsigned ... N, typename Tuple>
@@ -6085,11 +6085,11 @@ template <typename F, typename Set>
             return std::get<detail::get_index_of_element_from_tuple_by_type_impl<T, 0, Args...>::value>(t);
         }
 
-        template<typename T> 
-        struct function_traits;  
+        template<typename T>
+        struct function_traits;
 
 #ifndef CROW_MSVC_WORKAROUND
-        template<typename T> 
+        template<typename T>
         struct function_traits : public function_traits<decltype(&T::operator())>
         {
             using parent_t = function_traits<decltype(&T::operator())>;
@@ -6097,11 +6097,11 @@ template <typename F, typename Set>
             using result_type = typename parent_t::result_type;
             template <size_t i>
             using arg = typename parent_t::template arg<i>;
-        
-        };  
+
+        };
 #endif
 
-        template<typename ClassType, typename R, typename ...Args> 
+        template<typename ClassType, typename R, typename ...Args>
         struct function_traits<R(ClassType::*)(Args...) const>
         {
             static const size_t arity = sizeof...(Args);
@@ -6112,7 +6112,7 @@ template <typename F, typename Set>
             using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
         };
 
-        template<typename ClassType, typename R, typename ...Args> 
+        template<typename ClassType, typename R, typename ...Args>
         struct function_traits<R(ClassType::*)(Args...)>
         {
             static const size_t arity = sizeof...(Args);
@@ -6123,7 +6123,7 @@ template <typename F, typename Set>
             using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
         };
 
-        template<typename R, typename ...Args> 
+        template<typename R, typename ...Args>
         struct function_traits<std::function<R(Args...)>>
         {
             static const size_t arity = sizeof...(Args);
@@ -6437,7 +6437,7 @@ namespace crow
         class Connection : public connection
         {
 			public:
-				Connection(const crow::request& req, Adaptor&& adaptor, 
+				Connection(const crow::request& req, Adaptor&& adaptor,
 						std::function<void(crow::websocket::connection&)> open_handler,
 						std::function<void(crow::websocket::connection&, const std::string&, bool)> message_handler,
 						std::function<void(crow::websocket::connection&, const std::string&)> close_handler,
@@ -6456,7 +6456,7 @@ namespace crow
                     sha1::SHA1 s;
                     s.processBytes(magic.data(), magic.size());
                     uint8_t digest[20];
-                    s.getDigestBytes(digest);   
+                    s.getDigestBytes(digest);
                     start(crow::utility::base64encode((char*)digest, 20));
 				}
 
@@ -6569,14 +6569,14 @@ namespace crow
                     {
                         case WebSocketReadState::MiniHeader:
                             {
-                                //boost::asio::async_read(adaptor_.socket(), boost::asio::buffer(&mini_header_, 1), 
-                                adaptor_.socket().async_read_some(boost::asio::buffer(&mini_header_, 2), 
-                                    [this](const boost::system::error_code& ec, std::size_t bytes_transferred) 
+                                //boost::asio::async_read(adaptor_.socket(), boost::asio::buffer(&mini_header_, 1),
+                                adaptor_.socket().async_read_some(boost::asio::buffer(&mini_header_, 2),
+                                    [this](const boost::system::error_code& ec, std::size_t bytes_transferred)
                                     {
                                         is_reading = false;
                                         mini_header_ = htons(mini_header_);
 #ifdef CROW_ENABLE_DEBUG
-                                        
+
                                         if (!ec && bytes_transferred != 2)
                                         {
                                             throw std::runtime_error("WebSocket:MiniHeader:async_read fail:asio bug?");
@@ -6614,8 +6614,8 @@ namespace crow
                         case WebSocketReadState::Len16:
                             {
                                 remaining_length_ = 0;
-                                boost::asio::async_read(adaptor_.socket(), boost::asio::buffer(&remaining_length_, 2), 
-                                    [this](const boost::system::error_code& ec, std::size_t bytes_transferred) 
+                                boost::asio::async_read(adaptor_.socket(), boost::asio::buffer(&remaining_length_, 2),
+                                    [this](const boost::system::error_code& ec, std::size_t bytes_transferred)
                                     {
                                         is_reading = false;
                                         remaining_length_ = ntohs(*(uint16_t*)&remaining_length_);
@@ -6644,8 +6644,8 @@ namespace crow
                             break;
                         case WebSocketReadState::Len64:
                             {
-                                boost::asio::async_read(adaptor_.socket(), boost::asio::buffer(&remaining_length_, 8), 
-                                    [this](const boost::system::error_code& ec, std::size_t bytes_transferred) 
+                                boost::asio::async_read(adaptor_.socket(), boost::asio::buffer(&remaining_length_, 8),
+                                    [this](const boost::system::error_code& ec, std::size_t bytes_transferred)
                                     {
                                         is_reading = false;
                                         remaining_length_ = ((1==ntohl(1)) ? (remaining_length_) : ((uint64_t)ntohl((remaining_length_) & 0xFFFFFFFF) << 32) | ntohl((remaining_length_) >> 32));
@@ -6673,7 +6673,7 @@ namespace crow
                             }
                             break;
                         case WebSocketReadState::Mask:
-                                boost::asio::async_read(adaptor_.socket(), boost::asio::buffer((char*)&mask_, 4), 
+                                boost::asio::async_read(adaptor_.socket(), boost::asio::buffer((char*)&mask_, 4),
                                     [this](const boost::system::error_code& ec, std::size_t bytes_transferred)
                                     {
                                         is_reading = false;
@@ -6703,7 +6703,7 @@ namespace crow
                                 size_t to_read = buffer_.size();
                                 if (remaining_length_ < to_read)
                                     to_read = remaining_length_;
-                                adaptor_.socket().async_read_some( boost::asio::buffer(buffer_, to_read), 
+                                adaptor_.socket().async_read_some( boost::asio::buffer(buffer_, to_read),
                                     [this](const boost::system::error_code& ec, std::size_t bytes_transferred)
                                     {
                                         is_reading = false;
@@ -6831,7 +6831,7 @@ namespace crow
                         {
                             buffers.emplace_back(boost::asio::buffer(s));
                         }
-                        boost::asio::async_write(adaptor_.socket(), buffers, 
+                        boost::asio::async_write(adaptor_.socket(), buffers,
                             [&](const boost::system::error_code& ec, std::size_t /*bytes_transferred*/)
                             {
                                 sending_buffers_.clear();
@@ -7216,7 +7216,7 @@ namespace crow
 
     // before_handle
     //      called before handling the request.
-    //      if res.end() is called, the operation is halted. 
+    //      if res.end() is called, the operation is halted.
     //      (still call after_handle of this middleware)
     //      2 signatures:
     //      void before_handle(request& req, response& res, context& ctx)
@@ -7367,7 +7367,7 @@ namespace crow
     C::handle
         context.aaa
 
-    App::context : private CookieParser::contetx, ... 
+    App::context : private CookieParser::contetx, ...
     {
         jar
 
@@ -7415,7 +7415,7 @@ namespace crow
         virtual ~BaseRule()
         {
         }
-        
+
         virtual void validate() = 0;
         std::unique_ptr<BaseRule> upgrade()
 		{
@@ -7425,13 +7425,13 @@ namespace crow
 		}
 
         virtual void handle(const request&, response&, const routing_params&) = 0;
-        virtual void handle_upgrade(const request&, response& res, SocketAdaptor&&) 
+        virtual void handle_upgrade(const request&, response& res, SocketAdaptor&&)
 		{
 			res = response(404);
 			res.end();
 		}
 #ifdef CROW_ENABLE_SSL
-        virtual void handle_upgrade(const request&, response& res, SSLAdaptor&&) 
+        virtual void handle_upgrade(const request&, response& res, SSLAdaptor&&)
 		{
 			res = response(404);
 			res.end();
@@ -7477,12 +7477,12 @@ namespace crow
                 response& res;
             };
 
-            template <typename F, int NInt, int NUint, int NDouble, int NString, typename S1, typename S2> 
+            template <typename F, int NInt, int NUint, int NDouble, int NString, typename S1, typename S2>
             struct call
             {
             };
 
-            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2> 
+            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2>
             struct call<F, NInt, NUint, NDouble, NString, black_magic::S<int64_t, Args1...>, black_magic::S<Args2...>>
             {
                 void operator()(F cparams)
@@ -7493,7 +7493,7 @@ namespace crow
                 }
             };
 
-            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2> 
+            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2>
             struct call<F, NInt, NUint, NDouble, NString, black_magic::S<uint64_t, Args1...>, black_magic::S<Args2...>>
             {
                 void operator()(F cparams)
@@ -7504,7 +7504,7 @@ namespace crow
                 }
             };
 
-            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2> 
+            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2>
             struct call<F, NInt, NUint, NDouble, NString, black_magic::S<double, Args1...>, black_magic::S<Args2...>>
             {
                 void operator()(F cparams)
@@ -7515,7 +7515,7 @@ namespace crow
                 }
             };
 
-            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2> 
+            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1, typename ... Args2>
             struct call<F, NInt, NUint, NDouble, NString, black_magic::S<std::string, Args1...>, black_magic::S<Args2...>>
             {
                 void operator()(F cparams)
@@ -7526,7 +7526,7 @@ namespace crow
                 }
             };
 
-            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1> 
+            template <typename F, int NInt, int NUint, int NDouble, int NString, typename ... Args1>
             struct call<F, NInt, NUint, NDouble, NString, black_magic::S<>, black_magic::S<Args1...>>
             {
                 void operator()(F cparams)
@@ -7534,7 +7534,7 @@ namespace crow
                     cparams.handler(
                         cparams.req,
                         cparams.res,
-                        cparams.params.template get<typename Args1::type>(Args1::pos)... 
+                        cparams.params.template get<typename Args1::type>(Args1::pos)...
                     );
                 }
             };
@@ -7604,21 +7604,21 @@ namespace crow
                 struct handler_type_helper
                 {
                     using type = std::function<void(const crow::request&, crow::response&, Args...)>;
-                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>; 
+                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>;
                 };
 
                 template <typename ... Args>
                 struct handler_type_helper<const request&, Args...>
                 {
                     using type = std::function<void(const crow::request&, crow::response&, Args...)>;
-                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>; 
+                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>;
                 };
 
                 template <typename ... Args>
                 struct handler_type_helper<const request&, response&, Args...>
                 {
                     using type = std::function<void(const crow::request&, crow::response&, Args...)>;
-                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>; 
+                    using args_type = black_magic::S<typename black_magic::promote_t<Args>...>;
                 };
 
                 typename handler_type_helper<ArgsWrapped...>::type handler_;
@@ -7628,7 +7628,7 @@ namespace crow
                     detail::routing_handler_call_helper::call<
                         detail::routing_handler_call_helper::call_params<
                             decltype(handler_)>,
-                        0, 0, 0, 0, 
+                        0, 0, 0, 0,
                         typename handler_type_helper<ArgsWrapped...>::args_type,
                         black_magic::S<>
                     >()(
@@ -7661,7 +7661,7 @@ namespace crow
 			res.end();
 		}
 
-        void handle_upgrade(const request& req, response&, SocketAdaptor&& adaptor) override 
+        void handle_upgrade(const request& req, response&, SocketAdaptor&& adaptor) override
 		{
 			new crow::websocket::Connection<SocketAdaptor>(req, std::move(adaptor), open_handler_, message_handler_, close_handler_, error_handler_);
 		}
@@ -7711,7 +7711,7 @@ namespace crow
     struct RuleParameterTraits
     {
         using self_t = T;
-		WebSocketRule& websocket() 
+		WebSocketRule& websocket()
 		{
 			auto p =new WebSocketRule(((self_t*)this)->rule_);
             ((self_t*)this)->rule_to_upgrade_.reset(p);
@@ -7781,7 +7781,7 @@ namespace crow
 #else
         template <typename Func, unsigned ... Indices>
 #endif
-        std::function<void(const request&, response&, const routing_params&)> 
+        std::function<void(const request&, response&, const routing_params&)>
         wrap(Func f, black_magic::seq<Indices...>)
         {
 #ifdef CROW_MSVC_WORKAROUND
@@ -7790,7 +7790,7 @@ namespace crow
             using function_t = utility::function_traits<Func>;
 #endif
             if (!black_magic::is_parameter_tag_compatible(
-                black_magic::get_parameter_tag_runtime(rule_.c_str()), 
+                black_magic::get_parameter_tag_runtime(rule_.c_str()),
                 black_magic::compute_parameter_tag_from_args_list<
                     typename function_t::template arg<Indices>...>::value))
             {
@@ -7838,9 +7838,9 @@ namespace crow
         operator()(Func&& f)
         {
             static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value , 
+                black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value ,
                 "Handler type is mismatched with URL parameters");
-            static_assert(!std::is_same<void, decltype(f(std::declval<Args>()...))>::value, 
+            static_assert(!std::is_same<void, decltype(f(std::declval<Args>()...))>::value,
                 "Handler function cannot have void return type; valid return types: string, int, crow::resposne, crow::json::wvalue");
 
                 handler_ = [f = std::move(f)](const request&, response& res, Args ... args){
@@ -7852,14 +7852,14 @@ namespace crow
         template <typename Func>
         typename std::enable_if<
             !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
-            black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value, 
+            black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value,
             void>::type
         operator()(Func&& f)
         {
             static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
-                black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value, 
+                black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value,
                 "Handler type is mismatched with URL parameters");
-            static_assert(!std::is_same<void, decltype(f(std::declval<crow::request>(), std::declval<Args>()...))>::value, 
+            static_assert(!std::is_same<void, decltype(f(std::declval<crow::request>(), std::declval<Args>()...))>::value,
                 "Handler function cannot have void return type; valid return types: string, int, crow::resposne, crow::json::wvalue");
 
                 handler_ = [f = std::move(f)](const crow::request& req, crow::response& res, Args ... args){
@@ -7871,16 +7871,16 @@ namespace crow
         template <typename Func>
         typename std::enable_if<
             !black_magic::CallHelper<Func, black_magic::S<Args...>>::value &&
-            !black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value, 
+            !black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value,
             void>::type
         operator()(Func&& f)
         {
             static_assert(black_magic::CallHelper<Func, black_magic::S<Args...>>::value ||
                 black_magic::CallHelper<Func, black_magic::S<crow::request, Args...>>::value ||
                 black_magic::CallHelper<Func, black_magic::S<crow::request, crow::response&, Args...>>::value
-                , 
+                ,
                 "Handler type is mismatched with URL parameters");
-            static_assert(std::is_same<void, decltype(f(std::declval<crow::request>(), std::declval<crow::response&>(), std::declval<Args>()...))>::value, 
+            static_assert(std::is_same<void, decltype(f(std::declval<crow::request>(), std::declval<crow::response&>(), std::declval<Args>()...))>::value,
                 "Handler function with response argument should have void return type");
 
                 handler_ = std::move(f);
@@ -7897,9 +7897,9 @@ namespace crow
         {
             detail::routing_handler_call_helper::call<
                 detail::routing_handler_call_helper::call_params<
-                    decltype(handler_)>, 
-                0, 0, 0, 0, 
-                black_magic::S<Args...>, 
+                    decltype(handler_)>,
+                0, 0, 0, 0,
+                black_magic::S<Args...>,
                 black_magic::S<>
             >()(
                 detail::routing_handler_call_helper::call_params<
@@ -7926,11 +7926,11 @@ namespace crow
 
             bool IsSimpleNode() const
             {
-                return 
+                return
                     !rule_index &&
                     std::all_of(
-                        std::begin(param_childrens), 
-                        std::end(param_childrens), 
+                        std::begin(param_childrens),
+                        std::end(param_childrens),
                         [](unsigned x){ return !x; });
             }
         };
@@ -8246,7 +8246,7 @@ public:
     class Router
     {
     public:
-        Router() : rules_(2) 
+        Router() : rules_(2)
         {
         }
 
@@ -8275,8 +8275,8 @@ public:
             rules_.emplace_back(ruleObject);
             trie_.add(rule, rules_.size() - 1);
 
-            // directory case: 
-            //   request to `/about' url matches `/about/' rule 
+            // directory case:
+            //   request to `/about' url matches `/about/' rule
             if (rule.size() > 1 && rule.back() == '/')
             {
                 std::string rule_without_trailing_slash = rule;
@@ -8300,7 +8300,7 @@ public:
             }
         }
 
-		template <typename Adaptor> 
+		template <typename Adaptor>
 		void handle_upgrade(const request& req, response& res, Adaptor&& adaptor)
 		{
             auto found = trie_.find(req.url);
@@ -8354,14 +8354,14 @@ public:
                 CROW_LOG_ERROR << "An uncaught exception occurred: " << e.what();
                 res = response(500);
                 res.end();
-                return;   
+                return;
             }
             catch(...)
             {
                 CROW_LOG_ERROR << "An uncaught exception occurred. The type was unknown so no information was available.";
                 res = response(500);
                 res.end();
-                return;   
+                return;
             }
 		}
 
@@ -8420,14 +8420,14 @@ public:
                 CROW_LOG_ERROR << "An uncaught exception occurred: " << e.what();
                 res = response(500);
                 res.end();
-                return;   
+                return;
             }
             catch(...)
             {
                 CROW_LOG_ERROR << "An uncaught exception occurred. The type was unknown so no information was available.";
                 res = response(500);
                 res.end();
-                return;   
+                return;
             }
         }
 
@@ -8466,7 +8466,7 @@ namespace crow
             template <int N>
             using partial = typename std::conditional<N == sizeof...(Middlewares)-1, partial_context, typename parent_context::template partial<N>>::type;
 
-            template <typename T> 
+            template <typename T>
             typename T::context& get()
             {
                 return static_cast<typename T::context&>(*this);
@@ -8495,7 +8495,7 @@ namespace crow
             template <int N, typename Context, typename Container, typename CurrentMW, typename ... Middlewares2>
             friend bool middleware_call_helper(Container& middlewares, request& req, response& res, Context& ctx);
 
-            template <typename T> 
+            template <typename T>
             typename T::context& get()
             {
                 return static_cast<typename T::context&>(*this);
@@ -8671,7 +8671,7 @@ namespace crow
         }
 
         template <int N, typename Context, typename Container>
-        typename std::enable_if<(N<0)>::type 
+        typename std::enable_if<(N<0)>::type
         after_handlers_call_helper(Container& /*middlewares*/, Context& /*context*/, request& /*req*/, response& /*res*/)
         {
         }
@@ -8702,17 +8702,17 @@ namespace crow
     {
     public:
         Connection(
-            boost::asio::io_service& io_service, 
-            Handler* handler, 
+            boost::asio::io_service& io_service,
+            Handler* handler,
             const std::string& server_name,
             std::tuple<Middlewares...>* middlewares,
             std::function<std::string()>& get_cached_date_str_f,
             detail::dumb_timer_queue& timer_queue,
             typename Adaptor::context* adaptor_ctx_
-            ) 
-            : adaptor_(io_service, adaptor_ctx_), 
-            handler_(handler), 
-            parser_(this), 
+            )
+            : adaptor_(io_service, adaptor_ctx_),
+            handler_(handler),
+            parser_(this),
             server_name_(server_name),
             middlewares_(middlewares),
             get_cached_date_str(get_cached_date_str_f),
@@ -8723,7 +8723,7 @@ namespace crow
             CROW_LOG_DEBUG << "Connection open, total " << connectionCount << ", " << this;
 #endif
         }
-        
+
         ~Connection()
         {
             res.complete_request_handler_ = nullptr;
@@ -8864,13 +8864,13 @@ namespace crow
                 detail::after_handlers_call_helper<
                     ((int)sizeof...(Middlewares)-1),
                     decltype(ctx_),
-                    decltype(*middlewares_)> 
+                    decltype(*middlewares_)>
                 (*middlewares_, ctx_, req_, res);
             }
 
             //auto self = this->shared_from_this();
             res.complete_request_handler_ = nullptr;
-            
+
             if (!adaptor_.is_open())
             {
                 //CROW_LOG_DEBUG << this << " delete (socket is closed) " << is_reading << ' ' << is_writing;
@@ -8979,7 +8979,7 @@ namespace crow
         {
             //auto self = this->shared_from_this();
             is_reading = true;
-            adaptor_.socket().async_read_some(boost::asio::buffer(buffer_), 
+            adaptor_.socket().async_read_some(boost::asio::buffer(buffer_),
                 [this](const boost::system::error_code& ec, std::size_t bytes_transferred)
                 {
                     bool error_while_reading = true;
@@ -9026,7 +9026,7 @@ namespace crow
         {
             //auto self = this->shared_from_this();
             is_writing = true;
-            boost::asio::async_write(adaptor_.socket(), buffers_, 
+            boost::asio::async_write(adaptor_.socket(), buffers_,
                 [&](const boost::system::error_code& ec, std::size_t /*bytes_transferred*/)
                 {
                     is_writing = false;
@@ -9068,7 +9068,7 @@ namespace crow
         void start_deadline(/*int timeout = 5*/)
         {
             cancel_deadline_timer();
-            
+
             timer_cancel_key_ = timer_queue.add([this]
             {
                 if (!adaptor_.is_open())
@@ -9245,7 +9245,7 @@ namespace crow
                             timer.async_wait(handler);
 
                             init_count ++;
-                            try 
+                            try
                             {
                                 io_service_pool_[i]->run();
                             } catch(std::exception& e)
@@ -9254,7 +9254,7 @@ namespace crow
                             }
                         }));
 
-            if (tick_function_ && tick_interval_.count() > 0) 
+            if (tick_function_ && tick_interval_.count() > 0)
             {
                 tick_timer_.expires_from_now(boost::posix_time::milliseconds(tick_interval_.count()));
                 tick_timer_.async_wait([this](const boost::system::error_code& ec)
@@ -9403,7 +9403,7 @@ namespace crow
         {
         }
 
-		template <typename Adaptor> 
+		template <typename Adaptor>
         void handle_upgrade(const request& req, response& res, Adaptor&& adaptor)
         {
             router_.handle_upgrade(req, res, adaptor);
@@ -9605,49 +9605,3 @@ namespace crow
 
 
 #pragma once
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

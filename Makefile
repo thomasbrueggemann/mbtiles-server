@@ -7,8 +7,8 @@ TARGET := build/mbtiles-server
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -std=c++14 -v -Wall
-LIB := -lboost_system -lboost_filesystem
+CFLAGS := -g -std=c++11 -v -Wall
+LIB := -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
 INC := -I ./
 
 $(TARGET): $(OBJECTS)
