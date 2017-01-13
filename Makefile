@@ -1,27 +1,20 @@
-CC := g++-4.9
-# CC := clang --analyze # and comment out the linker last line for sanity
-SRCDIR := src
-BUILDDIR := build
-TARGET := build/mbtiles-server
+CC = g++
 
-SRCEXT := cpp
-SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -std=c++11 -v -Wall
-LIB := -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
-INC := -I include
+CFLAGS = -g -std=c++14 -Wall
+LDFLAGS = -pthread -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
+OBJ = vector_tile.pb.o VectorTile.o MBTileReader.o
 
-$(TARGET): $(OBJECTS)
-	@mkdir -p $(BUILDDIR)
-	@echo " Linking..."
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
+EXE = mbtiles-server
+INC = vector_tile20
 
-$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(BUILDDIR)
-	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
+all: $(EXE)
 
 clean:
-	@echo " Cleaning...";
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
+	rm -f *~ *.o core $(EXE)
+	rm -rf *.dSYM
 
-.PHONY: clean
+$(EXE): % : %.o $(OBJ)
+	$(CC) $(CFLAGS) $@.o -o $@ $(OBJ) $(LDFLAGS)
+
+%.o: %.cpp $(INC)
+	$(CC) $(CFLAGS) -c $<

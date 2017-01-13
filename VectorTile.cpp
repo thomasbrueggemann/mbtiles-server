@@ -64,7 +64,7 @@ string ValueToStr(const ::vector_tile::Tile_Value &value)
 	return "Error: Unknown value type";
 }
 
-inline double CheckWinding(LineLoop2D pts) 
+inline double CheckWinding(LineLoop2D pts)
 {
 	double total = 0.0;
 	for(size_t i=0; i < pts.size(); i++)
@@ -77,11 +77,11 @@ inline double CheckWinding(LineLoop2D pts)
 }
 
 void DecodeGeometry(const ::vector_tile::Tile_Feature &feature,
-	int extent, int tileZoom, int tileColumn, int tileRow, 
-	vector<Point2D> &pointsOut, 
+	int extent, int tileZoom, int tileColumn, int tileRow,
+	vector<Point2D> &pointsOut,
 	vector<vector<Point2D> > &linesOut,
 	vector<Polygon2D> &polygonsOut)
-	
+
 {
 	long unsigned int numTiles = pow(2,tileZoom);
 	double lonMin = tilex2long(tileColumn, tileZoom);
@@ -118,7 +118,7 @@ void DecodeGeometry(const ::vector_tile::Tile_Feature &feature,
 				cursory += value2;
 				double px = dLon * double(cursorx) / double(extent) + lonMin;
 				double py = - dLat * double(cursory) / double(extent) + latMax;
-				
+
 				if (feature.type() == vector_tile::Tile_GeomType_POINT)
 					pointsOut.push_back(Point2D(px, py));
 				if (feature.type() == vector_tile::Tile_GeomType_LINESTRING && points.size() > 0)
@@ -126,7 +126,7 @@ void DecodeGeometry(const ::vector_tile::Tile_Feature &feature,
 					linesOut.push_back(points);
 					points.clear();
 				}
-				prevx = px; 
+				prevx = px;
 				prevy = py;
 				i += 2;
 				prevCmdId = cmdId;
@@ -175,11 +175,11 @@ void DecodeGeometry(const ::vector_tile::Tile_Feature &feature,
 					}
 					else
 						currentPolygon.second.push_back(points); //inter shape
-					
+
 					//prevWinding = winding;
 					points.clear();
 					prevCmdId = cmdId;
-				}				
+				}
 			}
 		}
 	}
@@ -206,15 +206,15 @@ void DecodeVectorTile::DecodeTileData(const std::string &tileData, int tileZoom,
 	bool parsed = tile.ParseFromString(tileData);
 	if(!parsed)
 		throw runtime_error("Failed to parse tile data");
-	
-	this->output->NumLayers(tile.layers_size());	
+
+	this->output->NumLayers(tile.layers_size());
 
 	for(int layerNum = 0; layerNum < tile.layers_size(); layerNum++)
 	{
 		const ::vector_tile::Tile_Layer &layer = tile.layers(layerNum);
 		this->output->LayerStart(layer.name().c_str(), layer.version());
 
-		//The spec says "Decoders SHOULD parse the version first to ensure that 
+		//The spec says "Decoders SHOULD parse the version first to ensure that
 		//they are capable of decoding each layer." This has not been implemented.
 
 		for(int featureNum = 0; featureNum < layer.features_size(); featureNum++)
@@ -223,7 +223,7 @@ void DecodeVectorTile::DecodeTileData(const std::string &tileData, int tileZoom,
 
 			map<string, string> tagMap;
 			for(int tagNum = 0; tagNum < feature.tags_size(); tagNum+=2)
-			{	
+			{
 				const ::vector_tile::Tile_Value &value = layer.values(feature.tags(tagNum+1));
 				tagMap[layer.keys(feature.tags(tagNum))] = ValueToStr(value);
 			}
@@ -231,10 +231,10 @@ void DecodeVectorTile::DecodeTileData(const std::string &tileData, int tileZoom,
 			vector<Point2D> points;
 			vector<vector<Point2D> > lines;
 			vector<Polygon2D> polygons;
-			DecodeGeometry(feature, layer.extent(), tileZoom, tileColumn, tileRow, 
+			DecodeGeometry(feature, layer.extent(), tileZoom, tileColumn, tileRow,
 				points, lines, polygons);
 
-			this->output->Feature(feature.type(), feature.has_id(), feature.id(), tagMap, 
+			this->output->Feature(feature.type(), feature.has_id(), feature.id(), tagMap,
 				points, lines, polygons);
 		}
 
@@ -245,22 +245,22 @@ void DecodeVectorTile::DecodeTileData(const std::string &tileData, int tileZoom,
 // *********************************************
 
 // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#C.2FC.2B.2B
-int long2tilex(double lon, int z) 
-{ 
-	return (int)(floor((lon + 180.0) / 360.0 * pow(2.0, z))); 
+int long2tilex(double lon, int z)
+{
+	return (int)(floor((lon + 180.0) / 360.0 * pow(2.0, z)));
 }
 
 int lat2tiley(double lat, int z)
-{ 
-	return (int)(floor((1.0 - log( tan(lat * M_PI/180.0) + 1.0 / cos(lat * M_PI/180.0)) / M_PI) / 2.0 * pow(2.0, z))); 
+{
+	return (int)(floor((1.0 - log( tan(lat * M_PI/180.0) + 1.0 / cos(lat * M_PI/180.0)) / M_PI) / 2.0 * pow(2.0, z)));
 }
 
-double tilex2long(int x, int z) 
+double tilex2long(int x, int z)
 {
 	return x / pow(2.0, z) * 360.0 - 180;
 }
 
-double tiley2lat(int y, int z) 
+double tiley2lat(int y, int z)
 {
 	double n = M_PI - 2.0 * M_PI * y / pow(2.0, z);
 	return 180.0 / M_PI * atan(0.5 * (exp(n) - exp(-n)));
@@ -294,9 +294,9 @@ void DecodeVectorTileResults::LayerEnd()
 	cout << "layer end" << endl;
 }
 
-void DecodeVectorTileResults::Feature(int typeEnum, bool hasId, 
+void DecodeVectorTileResults::Feature(int typeEnum, bool hasId,
 	unsigned long long id, const map<string, string> &tagMap,
-	vector<Point2D> &points, 
+	vector<Point2D> &points,
 	vector<vector<Point2D> > &lines,
 	vector<Polygon2D> &polygons)
 {
@@ -347,4 +347,3 @@ void DecodeVectorTileResults::Feature(int typeEnum, bool hasId,
 	}
 	cout << endl;
 }
-
