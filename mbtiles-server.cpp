@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
 		mbTileReader.GetTile(zoom, col, row, blob);
 		std::cout << versionInts[0] << std::endl;
 
-		// prepare according to the format
+		// PBF
 		if(format == "pbf" && versionInts[0] == 2)
 		{
 			// ungzip the data
@@ -92,16 +92,28 @@ int main(int argc, char* argv[]) {
 			return res;
 		}
 
-		if(format == "jpg" || format == "png")
+		// JPG
+		if(format == "jpg")
 		{
 			// prepare response
 			auto res = crow::response(blob);
 			res.set_header("Access-Control-Allow-Origin", "*");
+			res.set_header("Content-Type", "image/jpeg");
+			return res;
+		}
+
+		// PNG
+		if(format == "png")
+		{
+			// prepare response
+			auto res = crow::response(blob);
+			res.set_header("Access-Control-Allow-Origin", "*");
+			res.set_header("Content-Type", "image/png");
 			return res;
 		}
 
 		// not the right format
-		return crow::response(500);
+		return crow::response(501);
     });
 
 	crow::logger::setLogLevel(crow::LogLevel::Info);

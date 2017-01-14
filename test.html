@@ -26,26 +26,13 @@
 
 				water: {
 					weight: 0,
-					fillColor: '#9bc2c4',
+					fillColor: '#ccc',
 					fillOpacity: 1,
 					fill: true,
 					stroke: false
 				},
 
-				admin: function(properties, zoom) {
-					var level = properties.admin_level;
-					var weight = 1;
-					if (level == 2) {weight = 4;}
-					return {
-						weight: weight,
-						color: '#cf52d3',
-						dashArray: '2, 6',
-						fill: false,
-// 						lineCap: 'butt',
-						lineJoin: 'miter'
-					}
-				},
-
+				admin: [],
 				country_label: [],
 				marine_label: [],
 				state_label: [],
@@ -53,7 +40,9 @@
 				waterway_label: [],
 				landuse: [],
 				landuse_overlay: [],
-				road: [],
+				road: {
+					fillColor: "#cc0000"
+				},
 				poi_label: [],
 				waterway: [],
 				aeroway: [],
