@@ -5,7 +5,7 @@ LABEL Description="Little C++ server that serves MBTiles vector tiles." Vendor="
 # INSTALL DEPENDENCIES
 RUN apt-get update -y && apt-get install -y  software-properties-common
 RUN add-apt-repository ppa:ubuntu-toolchain-r/test
-RUN apt-get update -y && apt-get install -y libboost-all-dev g++ build-essential
+RUN apt-get update -y && apt-get install -y libboost-all-dev g++-5 build-essential
 RUN apt-get -y install libsqlite3-dev libprotobuf-dev zlib1g-dev
 
 # BUILD WHIRLWIND

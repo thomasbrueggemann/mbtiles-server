@@ -1,6 +1,6 @@
 #include "VectorTile.h"
 #include <string>
-#include "vector_tile20/vector_tile.pb.h"
+#include "vector_tile.pb.h"
 #include <math.h>
 #include <iostream>
 #include <sstream>

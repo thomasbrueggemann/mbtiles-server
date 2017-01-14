@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 
 #include "crow.h"
 #include "cppGzip/DecodeGzip.h"
@@ -7,7 +8,6 @@
 #include "MBTileReader.h"
 
 const std::string VERSION = "1.0.0";
-const int PORT = 8666;
 
 // http://stackoverflow.com/a/236803/4288232
 void strsplit(const std::string &s, char delim, std::vector<std::string> &elems) {
@@ -23,11 +23,20 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "MBTILES - SERVER v" << VERSION << std::endl;
 
+	// check if correct amount of arguments was submitted
+	if(argc != 3) {
+		std::cout << "Usage: mbtiles-server {PORT} {MBTILES-FILE}" << std::endl;
+		return 1;
+	}
+
+	// parameters
+	int port = atoi(argv[1]);
+
 	// init crow http server
 	crow::SimpleApp app;
 
 	// init mbtiles reader
-	class MBTileReader mbTileReader("cairo_egypt.mbtiles");
+	class MBTileReader mbTileReader(argv[2]);
 	std::string format = mbTileReader.GetMetadata("format");
 
 	// get version numbers
@@ -42,16 +51,16 @@ int main(int argc, char* argv[]) {
 
 	// declaration of routes
 	CROW_ROUTE(app, "/<int>/<int>/<int>")
-	([&mbTileReader](int a, int b, int c)
+	([&mbTileReader](int zoom, int col, int row)
 	{
 		std::string blob;
-		mbTileReader.GetTile(a, b, c, blob);
+		mbTileReader.GetTile(zoom, col, row, blob);
 
-        return a + b + c;
+        return blob;
     });
 
 	crow::logger::setLogLevel(crow::LogLevel::Debug);
 
-	std::cout << "API listening on port " + std::to_string(PORT) + "..." << std::endl;
-	app.port(PORT).multithreaded().run();
+	std::cout << "API listening on port " + std::to_string(port) + "..." << std::endl;
+	app.port(port).multithreaded().run();
 }

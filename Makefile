@@ -5,7 +5,7 @@ LDFLAGS = -pthread -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -
 OBJ = vector_tile.pb.o VectorTile.o MBTileReader.o
 
 EXE = mbtiles-server
-INC = vector_tile20
+INC =
 
 all: $(EXE)
 
