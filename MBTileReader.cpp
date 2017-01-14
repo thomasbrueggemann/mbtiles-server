@@ -1,4 +1,4 @@
-#include "MBTileReader.h"
+#include "mbtilereader.h"
 #include <iostream>
 #include <cstring>
 #include <stdlib.h>
@@ -43,7 +43,7 @@ int MBTileReader::MetadataCallback(int argc, char **argv, char **azColName)
 		if (strncmp(azColName[i], "name", 5) == 0)
 			name = (argv[i] ? argv[i] : "NULL");
 		if (strncmp(azColName[i], "value", 6) == 0)
-			value = (argv[i] ? argv[i] : "NULL");		
+			value = (argv[i] ? argv[i] : "NULL");
 	}
 	if (name.size() > 0)
 		this->metadata[name] = value;
@@ -69,7 +69,7 @@ int MBTileReader::ListTilesCallbackStatic(void *rawPtr, int argc, char **argv, c
 	if(argc != 3)
 		throw runtime_error("Database returned unexpected number of columns");
 	std::vector<unsigned int> row;
-	if (argv[0] == NULL || argv[1] == NULL || argv[2] == NULL) 
+	if (argv[0] == NULL || argv[1] == NULL || argv[2] == NULL)
 		throw runtime_error("Valid tile descriptor");
 	row.push_back(atoi(argv[0])); //This is a bit silly since the data is stored as integers in the database!
 	row.push_back(atoi(argv[1]));
@@ -91,14 +91,14 @@ void MBTileReader::ListTiles(TileInfoRows &tileInfoRowsOut)
 	}
 }
 
-void MBTileReader::GetTile(unsigned int zoomLevel, 
-	unsigned int tileColumn, 
+void MBTileReader::GetTile(unsigned int zoomLevel,
+	unsigned int tileColumn,
 	unsigned int tileRow,
 	string &blobOut)
 {
 	sqlite3_stmt *stmt = NULL;
 	blobOut.clear();
-	int status = sqlite3_prepare(this->db, 
+	int status = sqlite3_prepare(this->db,
 		"SELECT tile_data FROM tiles WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?;",  // stmt
 		-1, // If than zero, then stmt is read up to the first nul terminator
 		&stmt,
@@ -136,7 +136,6 @@ void MBTileReader::GetTile(unsigned int zoomLevel,
 		firstRow = false;
 	}
 
-	sqlite3_finalize(stmt);	
+	sqlite3_finalize(stmt);
 	throw runtime_error("Error retrieving tile from database");
 }
-

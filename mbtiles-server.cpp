@@ -3,9 +3,9 @@
 #include <cstdlib>
 
 #include "crow.h"
-#include "cppGzip/DecodeGzip.h"
-#include "VectorTile.h"
-#include "MBTileReader.h"
+#include "decodegzip.h"
+#include "vectortile.h"
+#include "mbtilereader.h"
 
 const std::string VERSION = "1.0.0";
 
@@ -37,7 +37,11 @@ int main(int argc, char* argv[]) {
 
 	// init mbtiles reader
 	class MBTileReader mbTileReader(argv[2]);
+	std::cout << "Loading file: " << argv[2] << std::endl;
+
+	// get format
 	std::string format = mbTileReader.GetMetadata("format");
+	std::cout << format << std::endl;
 
 	// get version numbers
 	std::string version = mbTileReader.GetMetadata("version");
@@ -50,16 +54,57 @@ int main(int argc, char* argv[]) {
 	}
 
 	// declaration of routes
-	CROW_ROUTE(app, "/<int>/<int>/<int>")
-	([&mbTileReader](int zoom, int col, int row)
+	CROW_ROUTE(app, "/")
+	([]()
 	{
+		return "=== MBTILES-SERVER ===\nUsage: GET /{z}/{x}/{y}";
+	});
+
+	CROW_ROUTE(app, "/<int>/<int>/<int>")
+	([&mbTileReader, &format, &versionInts](int zoom, int col, int row)
+	{
+		// get the tile
 		std::string blob;
 		mbTileReader.GetTile(zoom, col, row, blob);
+		std::cout << versionInts[0] << std::endl;
 
-        return blob;
+		// prepare according to the format
+		if(format == "pbf" && versionInts[0] == 2)
+		{
+			// ungzip the data
+			std::stringbuf buff;
+			buff.sputn(blob.c_str(), blob.size());
+			DecodeGzip dec(buff);
+
+			std::string tileData;
+
+			char tmp[1024];
+			while(dec.in_avail())
+			{
+				std::streamsize bytes = dec.sgetn(tmp, 1024);
+				tileData.append(tmp, bytes);
+			}
+
+			// prepare response
+			auto res = crow::response(tileData);
+			res.set_header("Access-Control-Allow-Origin", "*");
+			res.set_header("Content-Type", "application/x-protobuf");
+			return res;
+		}
+
+		if(format == "jpg" || format == "png")
+		{
+			// prepare response
+			auto res = crow::response(blob);
+			res.set_header("Access-Control-Allow-Origin", "*");
+			return res;
+		}
+
+		// not the right format
+		return crow::response(500);
     });
 
-	crow::logger::setLogLevel(crow::LogLevel::Debug);
+	crow::logger::setLogLevel(crow::LogLevel::Info);
 
 	std::cout << "API listening on port " + std::to_string(port) + "..." << std::endl;
 	app.port(port).multithreaded().run();

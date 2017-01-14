@@ -2,7 +2,7 @@ CC = g++
 
 CFLAGS = -g -std=c++14 -Wall
 LDFLAGS = -pthread -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
-OBJ = vector_tile.pb.o VectorTile.o MBTileReader.o
+OBJ = decodegzip.o vector_tile.pb.o vectortile.o mbtilereader.o
 
 EXE = mbtiles-server
 INC =

@@ -1,4 +1,4 @@
-#include "VectorTile.h"
+#include "vectortile.h"
 #include <string>
 #include "vector_tile.pb.h"
 #include <math.h>

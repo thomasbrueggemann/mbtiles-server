@@ -5,7 +5,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <string.h>
-#include "DecodeGzip.h"
+#include "decodegzip.h"
 using namespace std;
 
 std::string ConcatStr(const char *a, const char *b)
@@ -15,7 +15,7 @@ std::string ConcatStr(const char *a, const char *b)
 	return out;
 }
 
-DecodeGzip::DecodeGzip(std::streambuf &inStream, std::streamsize readBuffSize, std::streamsize decodeBuffSize, int windowBits) : 
+DecodeGzip::DecodeGzip(std::streambuf &inStream, std::streamsize readBuffSize, std::streamsize decodeBuffSize, int windowBits) :
 	inStream(inStream), decodeDone(false),
 	readBuffSize(readBuffSize), decodeBuffSize(decodeBuffSize)
 {
@@ -78,7 +78,7 @@ void DecodeGzip::Decode()
 	err = inflateEnd(&d_stream);
 	if(err != Z_OK)
 		throw runtime_error(ConcatStr("inflateEnd failed: ", zError(err)));
-	
+
 	decodeDone = true;
 	decodeBuffCursor = decodeBuff;
 	return;
@@ -91,7 +91,7 @@ DecodeGzip::~DecodeGzip()
 }
 
 streamsize DecodeGzip::xsgetn (char* s, streamsize n)
-{	
+{
 	char *outputBuffCursor = s;
 	streamsize outputTotal = 0;
 
@@ -148,5 +148,3 @@ streamsize DecodeGzip::showmanyc()
 		return 1;
 	return inStream.in_avail() > 1;
 }
-
-
