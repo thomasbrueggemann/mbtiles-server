@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <exception>
 
 #include "crow.h"
 #include "decodegzip.h"
@@ -70,7 +71,7 @@ int main(int argc, char* argv[]) {
 		try {
 			mbTileReader.GetTile(zoom, col, row, blob);
 		}
-		catch() {
+		catch(std::exception e) {
 			auto res = crow::response(500, "tile not found");
 			res.set_header("Access-Control-Allow-Origin", "*");
 			return res;
@@ -126,7 +127,7 @@ int main(int argc, char* argv[]) {
 		return res;
     });
 
-	crow::logger::setLogLevel(crow::LogLevel::Info);
+	crow::logger::setLogLevel(crow::LogLevel::Debug);
 
 	std::cout << "API listening on port " + std::to_string(port) + "..." << std::endl;
 	app.port(port).multithreaded().run();
