@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
 	crow::SimpleApp app;
 
 	// init mbtiles reader
-	class MBTileReader mbTileReader(argv[2]);
+	MBTileReader mbTileReader(argv[2]);
 	std::cout << "Loading file: " << argv[2] << std::endl;
 
 	// get format
@@ -65,8 +65,16 @@ int main(int argc, char* argv[]) {
 	{
 		// get the tile
 		std::string blob;
-		mbTileReader.GetTile(zoom, col, row, blob);
 		std::cout << versionInts[0] << std::endl;
+
+		try {
+			mbTileReader.GetTile(zoom, col, row, blob);
+		}
+		catch() {
+			auto res = crow::response(500, "tile not found");
+			res.set_header("Access-Control-Allow-Origin", "*");
+			return res;
+		}
 
 		// PBF
 		if(format == "pbf" && versionInts[0] == 2)
@@ -113,7 +121,9 @@ int main(int argc, char* argv[]) {
 		}
 
 		// not the right format
-		return crow::response(501);
+		auto res = crow::response(500, "tile not found");
+		res.set_header("Access-Control-Allow-Origin", "*");
+		return res;
     });
 
 	crow::logger::setLogLevel(crow::LogLevel::Info);
