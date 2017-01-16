@@ -1,6 +1,6 @@
 CC = g++
 
-CFLAGS = -g -std=c++14 -Wall
+CFLAGS = -Ofast -std=c++14 -Wall
 LDFLAGS = -pthread -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
 OBJ = decodegzip.o vector_tile.pb.o vectortile.o mbtilereader.o
 
