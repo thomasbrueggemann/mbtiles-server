@@ -98,6 +98,7 @@ int main(int argc, char* argv[]) {
 			auto res = crow::response(tileData);
 			res.set_header("Access-Control-Allow-Origin", "*");
 			res.set_header("Content-Type", "application/x-protobuf");
+			res.set_header("Cache-Control", "public");
 			return res;
 		}
 
@@ -108,6 +109,7 @@ int main(int argc, char* argv[]) {
 			auto res = crow::response(blob);
 			res.set_header("Access-Control-Allow-Origin", "*");
 			res.set_header("Content-Type", "image/jpeg");
+			res.set_header("Cache-Control", "public");
 			return res;
 		}
 
