@@ -1,8 +1,8 @@
 CC = g++
 
 CFLAGS = -Ofast -std=c++14 -Wall
-LDFLAGS = -pthread -lboost_system -lboost_filesystem -lsqlite3 -lprotobuf-lite -lz
-OBJ = decodegzip.o vector_tile.pb.o vectortile.o mbtilereader.o
+LDFLAGS = -pthread -lboost_system -lboost_filesystem -lsqlite3
+OBJ = mbtilereader.o
 
 EXE = mbtiles-server
 INC =

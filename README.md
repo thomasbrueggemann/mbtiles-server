@@ -1,5 +1,5 @@
 # 🌐 MBTiles-Server
-Small C++ server that serves MBTiles vector tiles.
+Little C++ server that serves MBTiles vector tiles.
 
 ## Run using Docker
 
@@ -7,7 +7,7 @@ Small C++ server that serves MBTiles vector tiles.
 
 ```
 cd mbtiles-server
-docker build . -t mbtiles
+docker build . -t mbtiles-server
 ```
 
 2. Run the image as a container
@@ -18,7 +18,7 @@ so that the container can download the necessary data base.
 You can get .mbtiles files e.g. from https://openmaptiles.org/downloads/
 
 ```
-docker run -e FILE=https://openmaptiles.os.zhdk.cloud.switch.ch/v3.3/extracts/cologne_germany.mbtiles -e PORT=8989 -p 8989:8989 mbtiles
+docker run -e FILE=https://openmaptiles.os.zhdk.cloud.switch.ch/v3.3/extracts/cologne_germany.mbtiles -e PORT=8989 -p 8989:8989 mbtiles-server
 ```
 
 ## Test
